@@ -46,7 +46,7 @@ class AlgorithmTests extends Specification{
     def "Test Pohlig-Hellman Algorithm"(){
         PohligHellmanAlgorithm pohligHellmanAlgorithm = new PohligHellmanAlgorithm(discreteLogUtil)
         given: "we have 2^x mod 4608347 = 3220595"
-        when: "we try and solve the discrete log problem with the baby giant algorithm"
+        when: "we try and solve the discrete log problem with the pohlig hellman algorithm"
         DiscreteLogMetadata metadata = pohligHellmanAlgorithm.calculateDiscreteLog(BigInteger.valueOf(2l), BigInteger.valueOf(3220595l), BigInteger.valueOf(4608347l))
 
         then: "x = 777840"
