@@ -17,7 +17,7 @@ public class BabyGiantAlgorithm implements DiscreteLogCalculator{
     }
 
     @Override
-    public DiscreteLogMetadata calculateDiscreteLog(BigInteger generator, BigInteger power, BigInteger prime) {
+    public DiscreteLogMetadata calculateDiscreteLog(BigInteger generator, BigInteger base, BigInteger prime) {
         long start = System.currentTimeMillis();
 
         //m is the ceiling of sqrt(prime-1).  BigInteger sqrt always rounds down
@@ -33,7 +33,7 @@ public class BabyGiantAlgorithm implements DiscreteLogCalculator{
 
         BigInteger inverseModPrime = discreteLogUtil.calculateExtendedEuclid(generator, prime).getCoefficient1().mod(prime);
         BigInteger a = inverseModPrime.modPow(m, prime);
-        BigInteger q = power;
+        BigInteger q = base;
 
         for(BigInteger bi = BigInteger.ONE; bi.compareTo(m) < 0; bi = bi.add(BigInteger.ONE)){
             //q = (q*a) % prime
@@ -43,7 +43,7 @@ public class BabyGiantAlgorithm implements DiscreteLogCalculator{
             if(dictionary.containsKey(q)){
                 //finalNum = (bi*max + dictionary[q]) % prime
                 BigInteger finalNum = bi.multiply(m).add(dictionary.get(q)).mod(prime);
-                if(discreteLogUtil.verify(generator, power, prime, finalNum)){
+                if(discreteLogUtil.verify(generator, base, prime, finalNum)){
                     return DiscreteLogMetadata.builder()
                             .algorithmName("Baby Giant Algorithm")
                             .solutionFound(true)

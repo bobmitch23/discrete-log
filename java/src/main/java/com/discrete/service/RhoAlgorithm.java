@@ -15,25 +15,25 @@ public class RhoAlgorithm implements DiscreteLogCalculator{
     }
 
     @Override
-    public DiscreteLogMetadata calculateDiscreteLog(BigInteger generator, BigInteger power, BigInteger prime) {
+    public DiscreteLogMetadata calculateDiscreteLog(BigInteger generator, BigInteger base, BigInteger prime) {
         long start = System.currentTimeMillis();
         //subGroup = (prime - 1)/2
         BigInteger subGroup = prime.subtract(BigInteger.ONE).divide(BigInteger.valueOf(2l));
 
         BigInteger X, x;
-        X = x = generator.multiply(power);
+        X = x = generator.multiply(base);
         BigInteger A, a, B, b;
         A = a = B = b = BigInteger.ONE;
 
         // move x and X at different 'speeds' (x once and X twice) until a collision occurs
         for(int i = 1; i < prime.longValue() - 1; i++){
-            BigInteger [] movex = newXAB (x, a, b, generator, power, prime, subGroup);
+            BigInteger [] movex = newXAB (x, a, b, generator, base, prime, subGroup);
             x = movex[0];
             a = movex[1];
             b = movex[2];
 
-            BigInteger [] moveX1 = newXAB (X, A, B, generator, power, prime, subGroup);
-            BigInteger [] moveX2 = newXAB (moveX1[0], moveX1[1], moveX1[2], generator, power, prime, subGroup);
+            BigInteger [] moveX1 = newXAB (X, A, B, generator, base, prime, subGroup);
+            BigInteger [] moveX2 = newXAB (moveX1[0], moveX1[1], moveX1[2], generator, base, prime, subGroup);
             X = moveX2[0];
             A = moveX2[1];
             B = moveX2[2];
@@ -48,11 +48,11 @@ public class RhoAlgorithm implements DiscreteLogCalculator{
         double numSecondsTaken = (System.currentTimeMillis() - (double) start)/1000;
         BigInteger solution = null;
         boolean solutionFound = false;
-        if(discreteLogUtil.verify(generator, power, prime, finalNum)){
+        if(discreteLogUtil.verify(generator, base, prime, finalNum)){
             solution = finalNum;
             solutionFound = true;
         }
-        else if (discreteLogUtil.verify(generator, power, prime, finalNum.add(subGroup))){
+        else if (discreteLogUtil.verify(generator, base, prime, finalNum.add(subGroup))){
             solution = finalNum;
             solutionFound = true;
         }

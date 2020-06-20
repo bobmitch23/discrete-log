@@ -1,5 +1,5 @@
 class DiscreteLogMetadata:
     
-    def __init__(self, solution, timeTaken):
+    def __init__(self, solution, secondsTaken):
         self.solution = solution
-        self.timeTaken = timeTaken
+        self.secondsTaken = secondsTaken
