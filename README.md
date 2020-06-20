@@ -16,18 +16,18 @@ http://localhost:8080/rho?generator=5&base=222137199848&prime=4889427811007<br/>
 http://localhost:8080/baby-giant?generator=5&base=222137199848&prime=4889427811007<br/>
 
 ## Python code
-import the discreteLog module and then you have the three algorithms available to you
+import the discrete_log module and then you have the three algorithms available to you
 
 ```python
-import discreteLog
+import discrete_log
 
-rho_metadata = discreteLog.rho.solve(5, 222137199848, 4889427811007)
+rho_metadata = discrete_log.rho.solve(5, 222137199848, 4889427811007)
 print(rho_metadata.solution, rho_metadata.secondsTaken)
 
-pohlig_hellman_metadata = discreteLog.pohlig_hellman.solve(5, 222137199848, 4889427811007)
+pohlig_hellman_metadata = discrete_log.pohlig_hellman.solve(5, 222137199848, 4889427811007)
 print(pohlig_hellman_metadata.solution, pohlig_hellman_metadata.secondsTaken)
 
-baby_giant_metadata = discreteLog.baby_giant.solve(5, 222137199848, 4889427811007)
+baby_giant_metadata = discrete_log.baby_giant.solve(5, 222137199848, 4889427811007)
 print(baby_giant_metadata.solution, baby_giant_metadata.secondsTaken)
 ```
 
